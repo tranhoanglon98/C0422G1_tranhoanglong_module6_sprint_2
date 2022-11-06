@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <script src="https://kit.fontawesome.com/9cad70f17b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+</head>
+<body>
+<div class="container_">
+    <div class="screen">
+        <div class="screen__content">
+            <form class="login">
+                <h2 class="mb-2"  style="color:#03712c">Green Book</h2>
+                <div class="login__field">
+                    <i class="login__icon fas fa-user"></i>
+                    <input type="text" class="login__input" placeholder="Tài khoản">
+                </div>
+                <div class="login__field">
+                    <i class="login__icon fas fa-lock"></i>
+                    <input type="password" class="login__input" placeholder="Mật khẩu">
+                </div>
+                <button class="button login__submit">
+                    <span class="mx-auto">Đăng Nhập</span>
+                    <i class="button__icon fas fa-chevron-right"></i>
+                </button>
+                <div class="mt-3">
+                    <div class="d-inline-block me-4">
+                        <input type="checkbox" id="remember_me">
+                        <label for="remember_me" style="color:#03712c">Nhớ mật khẩu</label>
+                    </div>
+                    <div class="d-inline-block">
+                        <a href="#" class="text-decoration-none text-light">Quên mật khẩu</a>
+                    </div>
+                </div>
+            </form>
+            <div class="social-login">
+                <div class="social-icons d-flex justify-content-center">
+                    <a class="social-login__icon fab fa-facebook"></a>
+                </div>
+            </div>
+        </div>
+        <div class="screen__background">
+            <span class="screen__background__shape screen__background__shape3"></span>
+            <span class="screen__background__shape screen__background__shape2"></span>
+            <span class="screen__background__shape screen__background__shape1"></span>
+        </div>
+    </div>
+</div>
+<script src="../js/bootstrap.js"></script>
+</body>
+</html>
