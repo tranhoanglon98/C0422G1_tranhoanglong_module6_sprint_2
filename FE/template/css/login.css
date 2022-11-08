@@ -8,7 +8,7 @@
 }
 
 body {
-    background: url("../img/background_cut (1).png") no-repeat center center fixed;
+    background: url("../img/background_cut (3).png") no-repeat center center fixed;
     background-size: cover;
     font-size: 16px;
     font-family: 'Lato', sans-serif;
@@ -163,4 +163,11 @@ body {
 
 #remember_me{
     accent-color: #03712c;
+}
+
+@media (max-width: 768px) {
+    .container_{
+        justify-content: center;
+        margin: 0;
+    }
 }
