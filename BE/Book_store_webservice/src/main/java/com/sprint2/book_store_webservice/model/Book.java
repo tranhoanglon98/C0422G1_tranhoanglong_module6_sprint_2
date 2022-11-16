@@ -23,6 +23,8 @@ public class Book {
     @JoinColumn(name = "publisher_id",referencedColumnName = "id")
     private Publisher publisher;
 
+    private Double price;
+
     private Integer totalPages;
 
     private Double width;
