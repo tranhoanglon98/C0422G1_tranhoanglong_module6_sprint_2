@@ -12,4 +12,7 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openFaceBook() {
+    window.open('https://www.facebook.com/long.tranhoang.9887','_blank')
+  }
 }

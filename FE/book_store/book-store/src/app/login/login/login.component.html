@@ -5,23 +5,23 @@
     <div class="page" id="page-3"></div>
     <div class="screen">
       <div class="screen__content">
-        <form class="login">
-          <h2 class="mb-2" style="color:#03712c">Green Book</h2>
+        <form class="login" [formGroup]="loginForm">
+          <a routerLink="" class="link"><h2 class="mb-2" style="color:#03712c">Green Book</h2></a>
           <div class="login__field">
             <i class="login__icon fas fa-user"></i>
-            <input type="text" class="login__input" placeholder="Tài khoản">
+            <input formControlName="username" type="text" class="login__input" placeholder="Tài khoản">
           </div>
           <div class="login__field">
             <i class="login__icon fas fa-lock"></i>
-            <input type="password" class="login__input" placeholder="Mật khẩu">
+            <input formControlName="password" type="password" class="login__input" placeholder="Mật khẩu">
           </div>
-          <button class="button login__submit">
+          <button class="button login__submit" (click)="submitLogin()">
             <span class="mx-auto">Đăng Nhập</span>
             <i class="button__icon fas fa-chevron-right"></i>
           </button>
           <div class="mt-3">
             <div class="d-inline-block me-4">
-              <input type="checkbox" id="remember_me">
+              <input type="checkbox" id="remember_me" (change)="rememberMe = !rememberMe">
               <label for="remember_me" style="color:#03712c">Nhớ mật <span class="text-light">&nbsp;khẩu</span></label>
             </div>
             <div class="d-inline-block">
@@ -34,7 +34,8 @@
         </div>
         <div class="social-login">
           <div class="social-icons d-flex justify-content-center">
-            <a class="social-login__icon fab fa-facebook"></a>
+            <a class="social-login__icon fab fa-facebook me-3"></a>
+            <a class="social-login__icon fa-brands fa-google"></a>
           </div>
         </div>
       </div>
