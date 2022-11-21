@@ -17,5 +17,7 @@ export class SecurityService {
     return this.httpClient.post<Observable<LoginResponse>>('http://localhost:8080/api/public/login',loginRequest)
   }
 
-
+  loginBySocial(token: string, platform: string): Observable<LoginResponse>{
+    return this.httpClient.post<LoginResponse>('http://localhost:8080/api/public/login/'+ platform,{value: token})
+  }
 }

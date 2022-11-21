@@ -6,6 +6,8 @@ import {LoginResponse} from "../../model/login-response";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {NavigationEnd, Router} from "@angular/router";
 import {filter} from "rxjs/operators";
+import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
+import {log} from "util";
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit,OnDestroy {
   constructor(private shareDataService: ShareDataService,
               private securityService: SecurityService,
               private tokenStorageService: TokenStorageService,
-              private router: Router) {
+              private router: Router,
+              private authService: SocialAuthService) {
     shareDataService.changeLoginModuleStatus(true)
     shareDataService.currentPreviousUrl.subscribe(url => this.previousUrl = url)
   }
@@ -45,6 +48,25 @@ export class LoginComponent implements OnInit,OnDestroy {
       this.shareDataService.changeLoginStatus(true)
       this.router.navigateByUrl(this.previousUrl);
     } )
+  }
+
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
+      this.securityService.loginBySocial(data.idToken,'google').subscribe(loginResponse => {
+        this.tokenStorageService.sessionStorageSave(loginResponse);
+        this.shareDataService.changeLoginStatus(true)
+        this.router.navigateByUrl(this.previousUrl);
+      })
+    });
+  }
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(data => {
+      this.securityService.loginBySocial(data.authToken,'facebook').subscribe(loginResponse => {
+        this.tokenStorageService.sessionStorageSave(loginResponse);
+        this.shareDataService.changeLoginStatus(true)
+        this.router.navigateByUrl(this.previousUrl);
+      })
+    });
   }
 
   ngOnDestroy(): void {

@@ -12,7 +12,6 @@ import {TokenStorageService} from "./service/token-storage.service";
 export class AppComponent implements OnInit{
   title = 'book-store';
   isLoginModule = false;
-  previousUrl: string = null;
   currentUrl: string = null;
 
   constructor(private shareDataService: ShareDataService,

@@ -14,6 +14,7 @@ export class TokenStorageService {
     localStorage.setItem("TOKEN",loginResponse.jwt);
     localStorage.setItem("USERNAME",loginResponse.username);
     localStorage.setItem("ROLE",JSON.stringify(loginResponse.roles));
+    localStorage.setItem("NAME",loginResponse.name);
   }
 
   sessionStorageSave(loginResponse: LoginResponse) {
@@ -22,6 +23,7 @@ export class TokenStorageService {
     sessionStorage.setItem("TOKEN",loginResponse.jwt);
     sessionStorage.setItem("USERNAME",loginResponse.username);
     sessionStorage.setItem("ROLE",JSON.stringify(loginResponse.roles));
+    sessionStorage.setItem("NAME",loginResponse.name);
   }
 
   getToken(){
@@ -37,6 +39,14 @@ export class TokenStorageService {
       return localStorage.getItem('USERNAME');
     }else {
       return sessionStorage.getItem('USERNAME');
+    }
+  }
+
+  getName(){
+    if (localStorage.getItem("NAME") != undefined){
+      return localStorage.getItem('NAME');
+    }else {
+      return sessionStorage.getItem('NAME');
     }
   }
 

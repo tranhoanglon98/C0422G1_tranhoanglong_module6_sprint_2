@@ -10,17 +10,22 @@ import {TokenStorageService} from "../../service/token-storage.service";
 export class HeaderComponent implements OnInit {
 
   isLogin: boolean;
-  username: string;
+  name: string;
 
   constructor(private shareDataService: ShareDataService,
               private tokenStorageService: TokenStorageService) {
     shareDataService.currentLoginStatus.subscribe(status => {
       this.isLogin = status;
     })
-    this.username = tokenStorageService.getUsername();
+    this.name = tokenStorageService.getName();
   }
 
   ngOnInit(): void {
   }
 
+  logOut() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.shareDataService.changeLoginStatus(false);
+  }
 }

@@ -34,7 +34,7 @@
             <li class="header-link">
               <a><i class="fa-solid fa-user"></i>
                 <span *ngIf="!isLogin">&nbsp;Tài khoản</span>
-                <span *ngIf="isLogin">&nbsp;{{username}}</span>
+                <span *ngIf="isLogin">&nbsp;{{name}}</span>
               </a>
               <ul class="account-tool-content" *ngIf="!isLogin">
                 <li><a routerLink="/login">Đăng nhập</a></li>
@@ -42,7 +42,7 @@
               </ul>
               <ul class="account-tool-content" *ngIf="isLogin">
                 <li><a routerLink="/login">Đơn hàng</a></li>
-                <li><a routerLink="/sign-up">Đăng xuất</a></li>
+                <li><a (click)="logOut()">Đăng xuất</a></li>
               </ul>
             </li>
           </ul>
