@@ -1,0 +1,71 @@
+.home-book{
+  perspective: 1000px;
+  width: 300px;
+}
+
+#background{
+  background: url("src/assets/images/home-background.png") no-repeat center center fixed;
+}
+
+.book{
+  position: relative;
+  width: 300px;
+  height: 450px;
+  transform-style: preserve-3d;
+  transition: transform 1.5s;
+}
+
+.left-flip{
+  transform: rotateY(-50deg);
+}
+
+.right-flip{
+  transform: rotateY(60deg);
+}
+
+.book-cover{
+  height: 450px;
+  background: #014017;
+  box-sizing: border-box;
+  position: absolute;
+}
+.front{
+  width: 300px;
+}
+
+.front-left,.front-right{
+  width: 150px;
+  height: 100%;
+  position: absolute;
+}
+
+.front-left{
+  right: 150px;
+  background-image: url("src/assets/images/cover-left.png");
+  background-size: 100% 100%;
+}
+
+.front-right{
+  background-image: url("src/assets/images/cover-right.png");
+  left: 150px;
+  background-size: 100% 100%;
+}
+
+.left{
+  right: 300px;
+  width: 35px;
+  transform: rotateY(-90deg);
+  transform-origin: right;
+  background-image: url("src/assets/images/home-book-left-cover.png");
+  background-size: 100% 100%;
+  border-right: #072612 2px solid;
+}
+.right{
+  left: 300px;
+  width: 35px;
+  height: 100%;
+  transform: rotateY(90deg);
+  transform-origin: left;
+  background-image: url("src/assets/images/book-cover-left-side.png");
+  background-size: 100% 100%;
+}

@@ -10,10 +10,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, HomeComponent],
-  exports: [
-    HeaderComponent,
-    FooterComponent
-  ],
+    exports: [
+        HeaderComponent,
+        FooterComponent,
+        HomeComponent
+    ],
   imports: [
     CommonModule,
     LayoutRoutingModule,

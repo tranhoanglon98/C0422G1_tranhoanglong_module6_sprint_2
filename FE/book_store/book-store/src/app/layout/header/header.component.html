@@ -13,18 +13,7 @@
             <li class="header-link">
               <a>Thể loại &nbsp;<i class="fa-solid fa-caret-down"></i></a>
               <ul class="category-list">
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
-                <li><a href="#">Child Link</a></li>
+                <li class="category-li"><a href="#" *ngFor="let category of categoryList">{{category.name}}</a></li>
               </ul>
             </li>
           </ul>

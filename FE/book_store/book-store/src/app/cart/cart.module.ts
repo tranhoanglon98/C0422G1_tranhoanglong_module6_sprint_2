@@ -7,10 +7,13 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 
 
 @NgModule({
-  declarations: [CartComponent, BookDetailComponent],
-  imports: [
-    CommonModule,
-    CartRoutingModule
-  ]
+    declarations: [CartComponent, BookDetailComponent],
+    exports: [
+        CartComponent
+    ],
+    imports: [
+        CommonModule,
+        CartRoutingModule
+    ]
 })
 export class CartModule { }

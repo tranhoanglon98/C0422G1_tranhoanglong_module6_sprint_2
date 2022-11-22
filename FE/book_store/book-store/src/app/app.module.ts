@@ -12,19 +12,21 @@ import {
   SocialAuthServiceConfig,
   SocialLoginModule
 } from "angularx-social-login";
+import {CartModule} from "./cart/cart.module";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    LoginModule,
-    LayoutModule,
-    HttpClientModule,
-    SocialLoginModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        LoginModule,
+        LayoutModule,
+        HttpClientModule,
+        SocialLoginModule,
+        CartModule
+    ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
