@@ -1,6 +1,6 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {BookService} from "../../service/book.service";
-import {Category} from "../../model/category";
+import {Component, OnInit} from '@angular/core';
+import {BookService} from '../../service/book.service';
+import {Book} from '../../model/book';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +9,36 @@ import {Category} from "../../model/category";
 })
 export class HomeComponent implements OnInit {
   flip: number = 0;
-  categoryList : Category[];
+  bestseller: Book[];
+  pages = [];
+  page: number = -1;
+  totalPages: number;
 
   constructor(private bookService: BookService) {
   }
 
   ngOnInit(): void {
+    this.getBestseller();
+    this.getList();
+  }
+
+  getBestseller() {
+    this.bookService.getBestseller().subscribe(data => {
+      this.bestseller = data;
+    });
+  }
+
+  getList() {
+    this.page++;
+    // @ts-ignore
+    this.bookService.getList(this.page).subscribe(data => {
+      // @ts-ignore
+      this.totalPages = data.totalPages;
+      console.log(this.page);
+      // @ts-ignore
+      this.pages[this.page] = data.content;
+      console.log(this.pages);
+    });
   }
 
   left() {

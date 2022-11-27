@@ -1,13 +1,13 @@
-.home-book{
+.home-book {
   perspective: 1000px;
   width: 300px;
 }
 
-#background{
+#background {
   background: url("src/assets/images/home-background.png") no-repeat center center fixed;
 }
 
-.book{
+.book {
   position: relative;
   width: 300px;
   height: 450px;
@@ -15,43 +15,44 @@
   transition: transform 1.5s;
 }
 
-.left-flip{
+.left-flip {
   transform: rotateY(-50deg);
 }
 
-.right-flip{
+.right-flip {
   transform: rotateY(60deg);
 }
 
-.book-cover{
+.book-cover {
   height: 450px;
   background: #014017;
   box-sizing: border-box;
   position: absolute;
 }
-.front{
+
+.front {
   width: 300px;
 }
 
-.front-left,.front-right{
+.front-left, .front-right {
   width: 150px;
   height: 100%;
   position: absolute;
 }
 
-.front-left{
+.front-left {
   right: 150px;
   background-image: url("src/assets/images/cover-left.png");
   background-size: 100% 100%;
 }
 
-.front-right{
+.front-right {
   background-image: url("src/assets/images/cover-right.png");
   left: 150px;
   background-size: 100% 100%;
 }
 
-.left{
+.left {
   right: 300px;
   width: 35px;
   transform: rotateY(-90deg);
@@ -60,7 +61,8 @@
   background-size: 100% 100%;
   border-right: #072612 2px solid;
 }
-.right{
+
+.right {
   left: 300px;
   width: 35px;
   height: 100%;
@@ -68,4 +70,39 @@
   transform-origin: left;
   background-image: url("src/assets/images/book-cover-left-side.png");
   background-size: 100% 100%;
+}
+
+.book-card img {
+  transition: all 0.4s;
+  border-radius: 10px;
+}
+
+.book-card:hover img {
+  transform: scale(1.2);
+  z-index: 1000;
+}
+
+.book-card-title, .card-button {
+  transition: all 0.4s;
+}
+
+.book-card:hover .book-card-title {
+  transform: translateY(100%);
+}
+
+.book-card:hover .card-button {
+  transform: translateY(-100%);
+}
+
+.card-btn{
+  background: none;
+  padding: 5px;
+  border: #ffffff solid 2px;
+  color: #ffffff;
+  background-size: 0 100%;
+  transition: all 0.4s;
+}
+
+.card-btn:target{
+  background: #055c25;
 }

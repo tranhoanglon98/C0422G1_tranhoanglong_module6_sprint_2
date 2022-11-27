@@ -1,15 +1,59 @@
- <div id="background">
-   <div class="mx-auto home-book pt-3 pb-3">
-     <div class="book" [class.left-flip]="flip == 1" [class.right-flip]="flip == 2">
-       <div class="book-cover front">
-         <div class="front-left" (mouseover)="left()" (mouseout)="mouseOut()"></div>
-         <div class="front-right" (mouseover)="right()" (mouseout)="mouseOut()"></div>
-       </div>
-       <div class="book-cover back"></div>
-       <div class="book-cover left"></div>
-       <div class="book-cover right"></div>
-     </div>
-   </div>
- </div>
+<div id="background">
+  <div class="mx-auto home-book pt-3 pb-3">
+    <div class="book" [class.left-flip]="flip == 1" [class.right-flip]="flip == 2">
+      <div class="book-cover front">
+        <div class="front-left" (mouseover)="left()" (mouseout)="mouseOut()"></div>
+        <div class="front-right" (mouseover)="right()" (mouseout)="mouseOut()"></div>
+      </div>
+      <div class="book-cover back"></div>
+      <div class="book-cover left"></div>
+      <div class="book-cover right"></div>
+    </div>
+  </div>
+  <div class="m-5 ">
+    <h3 class="text-light mb-5 mt-5 text-center shadow p-3">Sách Bán Chạy</h3>
+    <div *ngFor="let book of bestseller" class="text-center position-relative book-card text-light p-3"
+         style="width: 20%; height: 450px; display: inline-block">
+      <div class="position-relative w-100 h-100 shadow-lg p-2 rounded-1">
+        <div style="height: 35%" class="title">
+          <div class="book-card-title h-100">
+            <h5>Giá: {{book.price | currency : '': ''}} đ</h5>
+            <span>Đã bán: {{book.sold}}</span>
+            <p>{{book.title.length > 50 ? (book.title |slice: 0 : 50) + '. . .' : book.title  }}</p>
+          </div>
+          <div class="card-button h-100 d-flex align-items-center justify-content-center">
+            <button class="card-btn">Thêm vào giỏ hàng</button>
+          </div>
+        </div>
+        <img [src]="book.url" height="65%" alt="">
+      </div>
+    </div>
+  </div>
 
-
+  <div class="m-5 mb-0">
+    <h3 class="text-light mb-5 mt-5 text-center shadow p-3"></h3>
+    <div *ngFor="let list of pages;index as i">
+      <div *ngIf="list != null">
+        <div *ngFor="let book of pages[i]" class="text-center position-relative book-card text-light p-3"
+             style="width: 20%; height: 450px; display: inline-block">
+          <div class="position-relative w-100 h-100 shadow-lg p-2 rounded-1">
+            <div style="height: 35%" class="title">
+              <div class="book-card-title h-100">
+                <h5>Giá: {{book.price | currency : '': ''}} đ</h5>
+                <span>Đã bán: {{book.sold}}</span>
+                <p>{{book.title.length > 50 ? (book.title |slice: 0 : 50) + '. . .' : book.title  }}</p>
+              </div>
+              <div class="card-button h-100 d-flex align-items-center justify-content-center">
+                <button class="card-btn">Thêm vào giỏ hàng</button>
+              </div>
+            </div>
+            <img [src]="book.url" height="65%" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <span *ngIf="page < totalPages -1" class="text-light p-3 shadow" style="cursor: pointer" (click)="getList()" >Xem thêm</span>
+    </div>
+  </div>
+</div>
