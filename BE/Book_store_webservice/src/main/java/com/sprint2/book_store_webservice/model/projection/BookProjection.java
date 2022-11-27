@@ -9,4 +9,6 @@ public interface BookProjection {
     String getUrl();
 
     Double getPrice();
+
+    Integer getSold();
 }

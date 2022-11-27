@@ -47,4 +47,9 @@ public class BookRestController {
     public ResponseEntity<List<Category>> getListCategory(){
         return new ResponseEntity<>(categoryService.getAll(),HttpStatus.OK);
     }
+
+    @GetMapping("/public/book/bestseller")
+    public ResponseEntity<List<BookProjection>> getBestseller(){
+        return  new ResponseEntity<>(this.bookService.getBestseller(),HttpStatus.OK);
+    }
 }

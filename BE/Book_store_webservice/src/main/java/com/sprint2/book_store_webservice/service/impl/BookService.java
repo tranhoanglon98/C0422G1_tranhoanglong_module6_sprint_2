@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService implements IBookService {
 
@@ -22,5 +24,10 @@ public class BookService implements IBookService {
     @Override
     public Page<BookProjection> findByTitle(String title, Pageable pageable) {
         return this.bookRepository.findByTitle(title,pageable);
+    }
+
+    @Override
+    public List<BookProjection> getBestseller() {
+        return bookRepository.getBestseller();
     }
 }
