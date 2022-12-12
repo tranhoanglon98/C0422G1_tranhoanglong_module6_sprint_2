@@ -1,0 +1,21 @@
+section{
+  background: url("src/assets/images/home-background.png") no-repeat center center fixed;
+}
+
+input[type=checkbox]{
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  background: none;
+  color:black;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: white solid 1px;
+  position: relative;
+  left: -5px;
+  top: -5px;
+}
+input[type=checkbox]:checked{
+  background: #044e1d;
+}

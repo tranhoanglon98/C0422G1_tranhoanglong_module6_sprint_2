@@ -1,5 +1,6 @@
 package com.sprint2.book_store_webservice.service.impl;
 
+import com.sprint2.book_store_webservice.model.Book;
 import com.sprint2.book_store_webservice.model.projection.BookProjection;
 import com.sprint2.book_store_webservice.repository.IBookRepository;
 import com.sprint2.book_store_webservice.service.IBookService;
@@ -17,17 +18,22 @@ public class BookService implements IBookService {
     private IBookRepository bookRepository;
 
     @Override
-    public Page<BookProjection> findByCategoryId(Long id, Pageable pageable) {
-        return this.bookRepository.findByCategoryId(id,pageable);
+    public Page<BookProjection> findByCategory(String category, Pageable pageable) {
+        return this.bookRepository.findByCategory(category,pageable);
     }
 
     @Override
-    public Page<BookProjection> findByTitle(String title, Pageable pageable) {
-        return this.bookRepository.findByTitle(title,pageable);
+    public Page<BookProjection> findByTitleOrAuthor(String title, Pageable pageable) {
+        return this.bookRepository.findByTitleOrAuthor(title,pageable);
     }
 
     @Override
     public List<BookProjection> getBestseller() {
         return bookRepository.getBestseller();
+    }
+
+    @Override
+    public Book findById(Long id) {
+        return this.bookRepository.findById(id).orElse(null);
     }
 }

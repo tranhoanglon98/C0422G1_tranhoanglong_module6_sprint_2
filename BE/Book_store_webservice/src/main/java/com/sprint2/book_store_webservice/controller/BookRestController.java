@@ -1,5 +1,6 @@
 package com.sprint2.book_store_webservice.controller;
 
+import com.sprint2.book_store_webservice.model.Book;
 import com.sprint2.book_store_webservice.model.Category;
 import com.sprint2.book_store_webservice.model.projection.BookProjection;
 import com.sprint2.book_store_webservice.service.IBookService;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api")
+@RequestMapping("/api/public/book")
 public class BookRestController {
 
     @Autowired
@@ -26,30 +27,42 @@ public class BookRestController {
     @Autowired
     private ICategoryService categoryService;
 
-    @GetMapping("/public/book")
-    public ResponseEntity<Page<BookProjection>> getBook(@RequestParam Optional<String> bookTitle,
-                                                        @RequestParam Optional<Long> categoryId,
-                                                        @PageableDefault Pageable pageable){
+    @GetMapping("")
+    public ResponseEntity<Page<BookProjection>> getBook(@RequestParam Optional<String> searchValue,
+                                                        @RequestParam Optional<String> category,
+                                                        @PageableDefault Pageable pageable) {
         Page<BookProjection> bookPage;
-        if (categoryId.isPresent()){
-            bookPage = bookService.findByCategoryId(categoryId.get(), pageable);
-        }else {
-            if (bookTitle.isPresent()){
-                bookPage = bookService.findByTitle(bookTitle.get(),pageable);
-            }else {
-                bookPage = bookService.findByTitle("",pageable);
+        if (!category.get().equals("")) {
+            bookPage = bookService.findByCategory(category.get(), pageable);
+        } else {
+            if (searchValue.isPresent()) {
+                bookPage = bookService.findByTitleOrAuthor(searchValue.get(), pageable);
+            } else {
+                bookPage = bookService.findByTitleOrAuthor("", pageable);
             }
         }
-        return  new ResponseEntity<>(bookPage,HttpStatus.OK);
+        if (bookPage.hasContent()) {
+            return new ResponseEntity<>(bookPage, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/public/category")
-    public ResponseEntity<List<Category>> getListCategory(){
-        return new ResponseEntity<>(categoryService.getAll(),HttpStatus.OK);
+    @GetMapping("/category")
+    public ResponseEntity<List<Category>> getListCategory() {
+        return new ResponseEntity<>(categoryService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/public/book/bestseller")
-    public ResponseEntity<List<BookProjection>> getBestseller(){
-        return  new ResponseEntity<>(this.bookService.getBestseller(),HttpStatus.OK);
+    @GetMapping("/bestseller")
+    public ResponseEntity<List<BookProjection>> getBestseller() {
+        return new ResponseEntity<>(this.bookService.getBestseller(), HttpStatus.OK);
+    }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Book> getBookDetail(@PathVariable Long id){
+        Book book = this.bookService.findById(id);
+        if (book != null){
+            return new ResponseEntity<>(book,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

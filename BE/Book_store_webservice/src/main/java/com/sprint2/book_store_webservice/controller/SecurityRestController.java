@@ -27,7 +27,6 @@ import org.springframework.social.facebook.api.User;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.relation.Role;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,7 +73,7 @@ public class SecurityRestController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         String jwt = jwtUtility.generateJwtToken(loginRequest.get().getUsername());
-        return new ResponseEntity<>(new LoginResponse(jwt, roles, loginRequest.get().getUsername(), account.getAppUser().getName()), HttpStatus.OK);
+        return new ResponseEntity<>(new LoginResponse(account.getId(),jwt, roles, loginRequest.get().getUsername(), account.getAppUser().getName()), HttpStatus.OK);
     }
 
     @PostMapping("/login/google")
@@ -99,7 +98,7 @@ public class SecurityRestController {
         for (AppRole r: account.getAppRoles()){
             roles.add(r.getRole());
         }
-        return new ResponseEntity<>(new LoginResponse(token,roles,username,account.getAppUser().getName()), HttpStatus.OK);
+        return new ResponseEntity<>(new LoginResponse(account.getId(),token,roles,username,account.getAppUser().getName()), HttpStatus.OK);
     }
 
     @PostMapping("login/facebook")
@@ -121,7 +120,7 @@ public class SecurityRestController {
         for (AppRole r: account.getAppRoles()){
             roles.add(r.getRole());
         }
-        return new ResponseEntity<>(new LoginResponse(token,roles,username,account.getAppUser().getName()), HttpStatus.OK);
+        return new ResponseEntity<>(new LoginResponse(account.getId(),token,roles,username,account.getAppUser().getName()), HttpStatus.OK);
     }
 
 }

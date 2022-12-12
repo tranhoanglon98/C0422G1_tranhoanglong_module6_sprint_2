@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Category} from "../model/category";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Category} from '../model/category';
 import {Book} from '../model/book';
 
 @Injectable({
@@ -9,17 +9,19 @@ import {Book} from '../model/book';
 })
 export class BookService {
 
-  constructor(private httpClient: HttpClient) { }
-
-  getCategory() : Observable<Category>{
-    return this.httpClient.get<Category>('http://localhost:8080/api/public/category')
+  constructor(private httpClient: HttpClient) {
   }
 
-  getBestseller(): Observable<Book[]>{
-    return  this.httpClient.get<Book[]>("http://localhost:8080/api/public/book/bestseller")
+  getCategory(): Observable<Category> {
+    return this.httpClient.get<Category>('http://localhost:8080/api/public/book/category');
   }
 
-  getList(page: number) : Observable<Book[]>{
-    return this.httpClient.get<Book[]>("http://localhost:8080/api/public/book?page=" + page)
+  getBestseller(): Observable<Book[]> {
+    return this.httpClient.get<Book[]>('http://localhost:8080/api/public/book/bestseller');
+  }
+
+  getList(page: number, searchValue: string, category: string): Observable<Book[]> {
+    return this.httpClient.get<Book[]>('http://localhost:8080/api/public/book?page=' + page +
+      '&searchValue=' + searchValue+ '&category=' + category);
   }
 }

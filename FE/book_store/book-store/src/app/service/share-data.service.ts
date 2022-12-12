@@ -9,12 +9,14 @@ export class ShareDataService {
   private isLogin = new BehaviorSubject(false);
   private isLoginModule = new BehaviorSubject(false);
   private previousUrl = new BehaviorSubject("");
+  private cartItemsAmount = new BehaviorSubject(0);
 
   constructor() { }
 
   currentLoginStatus = this.isLogin.asObservable();
   currentLoginModuleStatus = this.isLoginModule.asObservable();
   currentPreviousUrl = this.previousUrl.asObservable();
+  currentCartItemsAmount  = this.cartItemsAmount.asObservable();
 
   changeLoginStatus(status: boolean){
     this.isLogin.next(status);
@@ -26,5 +28,9 @@ export class ShareDataService {
 
   changePreviousUrl(url: string){
     this.previousUrl.next(url);
+  }
+
+  changeCartItemsAmount (amount: number){
+    this.cartItemsAmount.next(amount);
   }
 }

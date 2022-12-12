@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginModule} from './login/login.module';
@@ -9,6 +8,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from 'angularx-social-login';
 import {CartModule} from './cart/cart.module';
 import {NgxUiLoaderHttpModule, NgxUiLoaderModule} from 'ngx-ui-loader';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,11 @@ import {NgxUiLoaderHttpModule, NgxUiLoaderModule} from 'ngx-ui-loader';
     HttpClientModule,
     SocialLoginModule,
     CartModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-center-center'
+    }),
     NgxUiLoaderModule.forRoot({
       "bgsColor": "red",
       "bgsOpacity": 0.5,

@@ -13,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class LoginResponse {
 
+    private Long id;
+
     private String jwt;
 
     private List<String> roles;

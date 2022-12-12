@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {BookService} from '../../service/book.service';
 import {Book} from '../../model/book';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {CartService} from '../../service/cart.service';
+import {ToastrService} from 'ngx-toastr';
+import {ShareDataService} from '../../service/share-data.service';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +16,33 @@ export class HomeComponent implements OnInit {
   bestseller: Book[];
   pages = [];
   page: number = -1;
-  totalPages: number;
+  totalPages: number = 0;
+  searchValue: string = "";
+  category: string = "";
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService,
+              private activatedRoute: ActivatedRoute,
+              private cartService: CartService,
+              private toastrService: ToastrService,
+              private shareDataService: ShareDataService) {
+    activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.get("searchValue") != null){
+        this.searchValue = paramMap.get("searchValue")
+        this.page = -1;
+        this.pages = []
+      }
+
+      if (paramMap.get("category") != null){
+        this.category = paramMap.get("category")
+        this.page = -1;
+        this.pages = []
+      }
+      this.getList();
+    });
   }
 
   ngOnInit(): void {
     this.getBestseller();
-    this.getList();
   }
 
   getBestseller() {
@@ -31,14 +54,27 @@ export class HomeComponent implements OnInit {
   getList() {
     this.page++;
     // @ts-ignore
-    this.bookService.getList(this.page).subscribe(data => {
-      // @ts-ignore
-      this.totalPages = data.totalPages;
-      console.log(this.page);
-      // @ts-ignore
-      this.pages[this.page] = data.content;
-      console.log(this.pages);
+    this.bookService.getList(this.page,this.searchValue, this.category).subscribe(data => {
+      if (data != null){
+        // @ts-ignore
+        this.totalPages = data.totalPages
+        if (this.pages.length == 0){
+          this.pages = new Array(this.totalPages)
+        }
+        // @ts-ignore
+        this.pages[this.page] = data.content;
+      }else {
+        this.totalPages = 0;
+      }
+      if (this.searchValue != "" || this.category != ""){
+        window.scroll({
+          top: document.getElementById('listBook').offsetTop,
+          left: 0,
+          behavior: 'smooth'
+        });
+      }
     });
+
   }
 
   left() {
@@ -53,4 +89,12 @@ export class HomeComponent implements OnInit {
     this.flip = 0;
   }
 
+  addToCart(id: number) {
+    this.cartService.addToCart(id).subscribe(data => {
+      this.toastrService.success('đã thêm vào giỏ hàng')
+      this.cartService.getCartItems().subscribe(items => {
+        this.shareDataService.changeCartItemsAmount(items.length)
+      })
+    })
+  }
 }

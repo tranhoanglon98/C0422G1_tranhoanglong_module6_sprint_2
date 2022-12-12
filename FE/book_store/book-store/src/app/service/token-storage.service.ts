@@ -15,6 +15,7 @@ export class TokenStorageService {
     localStorage.setItem("USERNAME",loginResponse.username);
     localStorage.setItem("ROLE",JSON.stringify(loginResponse.roles));
     localStorage.setItem("NAME",loginResponse.name);
+    localStorage.setItem("ID",String(loginResponse.id));
   }
 
   sessionStorageSave(loginResponse: LoginResponse) {
@@ -24,10 +25,11 @@ export class TokenStorageService {
     sessionStorage.setItem("USERNAME",loginResponse.username);
     sessionStorage.setItem("ROLE",JSON.stringify(loginResponse.roles));
     sessionStorage.setItem("NAME",loginResponse.name);
+    sessionStorage.setItem("ID",String(loginResponse.id));
   }
 
   getToken(){
-    if (localStorage.getItem("TOKEN") != undefined){
+    if (localStorage.getItem("TOKEN") != null){
       return localStorage.getItem('TOKEN');
     }else {
       return sessionStorage.getItem('TOKEN');
@@ -51,10 +53,18 @@ export class TokenStorageService {
   }
 
   getRole(){
-    if (localStorage.getItem("TOKEN") != undefined){
-      return localStorage.getItem('TOKEN');
+    if (localStorage.getItem("ROLE") != undefined){
+      return localStorage.getItem('ROLE');
     }else {
-      return sessionStorage.getItem('TOKEN');
+      return sessionStorage.getItem('ROLE');
+    }
+  }
+
+  getId(){
+    if (localStorage.getItem("ID") != undefined){
+      return localStorage.getItem('ID');
+    }else {
+      return sessionStorage.getItem('ID');
     }
   }
 }
