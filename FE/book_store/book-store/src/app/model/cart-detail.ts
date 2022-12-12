@@ -1,9 +1,9 @@
+import {Book} from "./book";
+
 export interface CartDetail {
-  id ?: number,
-  quantity ?: number,
-  status ?: boolean,
-  accountId ?: number,
-  title ?: string,
-  url ?: string,
-  bookPrice ?: number
+  id?: number,
+  quantity?: number,
+  status?: boolean,
+  account?: any,
+  book?: Book
 }

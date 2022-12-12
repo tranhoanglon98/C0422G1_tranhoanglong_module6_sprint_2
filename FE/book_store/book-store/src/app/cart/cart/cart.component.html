@@ -15,11 +15,11 @@
               </div>
               <div class="col-md-2 col-lg-2 col-xl-2">
                 <img
-                  [src]="item.url"
+                  [src]="item.book.imageUrl"
                   class="img-fluid rounded-3" alt="Cotton T-shirt">
               </div>
               <div class="col-md-3 col-lg-3 col-xl-3">
-                <p class="lead fw-normal mb-2">{{item.title}}</p>
+                <p class="lead fw-normal mb-2">{{item.book.title}}</p>
               </div>
               <div class="col-md-2 col-lg-3 col-xl-2 d-flex">
                 <span class="px-2 d-flex justify-content-center align-items-center"
@@ -37,7 +37,7 @@
                 </span>
               </div>
               <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                <h5 class="mb-0">{{item.bookPrice * item.quantity | currency:'':'':'4.0-0'}}&nbsp;đ</h5>
+                <h5 class="mb-0">{{item.book.price * item.quantity | currency:'':'':'4.0-0'}}&nbsp;đ</h5>
               </div>
               <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                 <a (click)="callToast(item)" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>

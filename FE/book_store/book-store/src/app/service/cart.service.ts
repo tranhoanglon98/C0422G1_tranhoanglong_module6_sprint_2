@@ -25,6 +25,7 @@ export class CartService {
   }
 
   addToCart(id: number) {
+    debugger
     const cartItem = {
       book: {
         id: id
@@ -33,15 +34,18 @@ export class CartService {
         id: this.tokenStorageService.getId()
       }
     }
-   return this.httpClient.post('http://localhost:8080/api/user/cart/save',cartItem,this.authenticationService.getHttpOption())
+   return this.httpClient.post('http://localhost:8080/api/user/cart/save',cartItem,
+     this.authenticationService.getHttpOption())
   }
 
 
   delete(item: CartDetail) {
-    const cartItem = {
-      id: item.id
-    }
-    return this.httpClient.post('http://localhost:8080/api/user/cart/delete',cartItem,
+    return this.httpClient.post('http://localhost:8080/api/user/cart/delete',item,
+      this.authenticationService.getHttpOption())
+  }
+
+  updateAll(items: CartDetail[]) {
+    return this.httpClient.post('http://localhost:8080/api/user/cart/update-all',items,
       this.authenticationService.getHttpOption())
   }
 }

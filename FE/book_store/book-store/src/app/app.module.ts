@@ -26,7 +26,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 2000,
-      positionClass: 'toast-center-center'
+      positionClass: 'toast-top-center'
     }),
     NgxUiLoaderModule.forRoot({
       "bgsColor": "red",

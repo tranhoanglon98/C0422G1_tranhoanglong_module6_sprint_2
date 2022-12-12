@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CartService} from '../../service/cart.service';
 import {CartDetail} from '../../model/cart-detail';
 import {ToastrService} from 'ngx-toastr';
@@ -11,7 +11,7 @@ import {render, RenderParams} from 'creditcardpayments/creditCardPayments';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
   items: CartDetail[];
   selected: CartDetail[] = [];
   totalPrice: number = 0;
@@ -25,7 +25,9 @@ export class CartComponent implements OnInit {
       currency: 'VND',
       value: '0',
       onApprove: details => {
-        alert("ok")
+        let paidItems = this.selected.map(item => item.status = false)
+        this.cartService.updateAll(this.items).subscribe();
+        alert("thanh toán thành công, hãy kiểm tra đơn hàng của bạn")
       }
     }
   }
@@ -49,18 +51,18 @@ export class CartComponent implements OnInit {
     }
     this.totalPrice = 0;
     this.selected.forEach(book => {
-      this.totalPrice += book.quantity * book.bookPrice;
+      this.totalPrice += book.quantity * book.book.price;
     });
-    this.renderParam.value = String(this.totalPrice*0.000042);
+    this.renderParam.value = String((this.totalPrice*0.000042).toFixed(2));
   }
 
   increase(i: number) {
     this.items[i].quantity += 1;
     this.totalPrice = 0;
     this.selected.forEach(book => {
-      this.totalPrice += book.quantity * book.bookPrice;
+      this.totalPrice += book.quantity * book.book.price;
     });
-    this.renderParam.value = String(this.totalPrice*0.000042);
+    this.renderParam.value = String((this.totalPrice*0.000042).toFixed(2));
   }
 
   decrease(i: number) {
@@ -69,9 +71,9 @@ export class CartComponent implements OnInit {
     }
     this.totalPrice = 0;
     this.selected.forEach(book => {
-      this.totalPrice += book.quantity * book.bookPrice;
+      this.totalPrice += book.quantity * book.book.price;
     });
-    this.renderParam.value = String(this.totalPrice*0.000042);
+    this.renderParam.value = String((this.totalPrice*0.000042).toFixed(2));
   }
 
   callToast(item: CartDetail) {
@@ -91,5 +93,9 @@ export class CartComponent implements OnInit {
         this.toastrService.success('Xóa thành công');
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.cartService.updateAll(this.items).subscribe();
   }
 }
