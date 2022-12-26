@@ -25,9 +25,13 @@ export class CartComponent implements OnInit, OnDestroy {
       currency: 'VND',
       value: '0',
       onApprove: details => {
-        let paidItems = this.selected.map(item => item.status = false)
         this.cartService.updateAll(this.items).subscribe();
-        alert("thanh toán thành công, hãy kiểm tra đơn hàng của bạn")
+        this.selected.map(item => item.status = false)
+        this.cartService.pay(this.selected).subscribe(ok => {
+          this.getCartItems();
+        });
+
+        Swal.fire('Thanh toán','Thanh toán thành công, hãy kiểm tra đơn hàng của bạn','success')
       }
     }
   }
@@ -40,6 +44,7 @@ export class CartComponent implements OnInit, OnDestroy {
   getCartItems() {
     this.cartService.getCartItems().subscribe(items => {
       this.items = items;
+      this.shareDataService.changeCartItemsAmount(this.items.length)
     });
   }
 

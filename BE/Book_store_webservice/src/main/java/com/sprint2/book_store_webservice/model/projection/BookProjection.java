@@ -6,7 +6,7 @@ public interface BookProjection {
 
     String getTitle();
 
-    String getUrl();
+    String getImageUrl();
 
     Double getPrice();
 

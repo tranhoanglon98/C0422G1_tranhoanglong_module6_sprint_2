@@ -14,5 +14,7 @@ public interface ICartDetailService {
     void delete(Long id);
 
     void update(List<CartDetail> cartDetails);
+
+    void pay(List<CartDetail> cartDetails);
 }
 

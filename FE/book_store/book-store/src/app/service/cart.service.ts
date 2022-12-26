@@ -21,11 +21,10 @@ export class CartService {
 
     // @ts-ignore
     return this.httpClient.get<CartDetail[]>('http://localhost:8080/api/user/cart?username='
-      + this.tokenStorageService.getUsername(),this.httpOption);
+      + this.tokenStorageService.getUsername(), this.httpOption);
   }
 
   addToCart(id: number) {
-    debugger
     const cartItem = {
       book: {
         id: id
@@ -34,18 +33,23 @@ export class CartService {
         id: this.tokenStorageService.getId()
       }
     }
-   return this.httpClient.post('http://localhost:8080/api/user/cart/save',cartItem,
-     this.authenticationService.getHttpOption())
+    return this.httpClient.post('http://localhost:8080/api/user/cart/save', cartItem,
+      this.authenticationService.getHttpOption())
   }
 
 
   delete(item: CartDetail) {
-    return this.httpClient.post('http://localhost:8080/api/user/cart/delete',item,
+    return this.httpClient.post('http://localhost:8080/api/user/cart/delete', item,
       this.authenticationService.getHttpOption())
   }
 
   updateAll(items: CartDetail[]) {
-    return this.httpClient.post('http://localhost:8080/api/user/cart/update-all',items,
+    return this.httpClient.post('http://localhost:8080/api/user/cart/update-all', items,
+      this.authenticationService.getHttpOption())
+  }
+
+  pay(selected: CartDetail[]) {
+    return this.httpClient.post('http://localhost:8080/api/user/cart/pay', selected,
       this.authenticationService.getHttpOption())
   }
 }

@@ -42,4 +42,9 @@ public class CartRestController {
         return new ResponseEntity<>(HttpStatus.OK);
    }
 
+   @PostMapping("pay")
+    public  ResponseEntity<Void> pay(@RequestBody List<CartDetail> cartDetails){
+        this.cartDetailService.pay(cartDetails);
+        return new ResponseEntity<>(HttpStatus.OK);
+   }
 }

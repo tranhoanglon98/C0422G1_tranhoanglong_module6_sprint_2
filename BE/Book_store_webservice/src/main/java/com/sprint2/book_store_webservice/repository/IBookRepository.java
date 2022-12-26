@@ -13,90 +13,82 @@ public interface IBookRepository extends JpaRepository<Book,Long> {
 
     @Query(value = "SELECT \n" +
             "    b.id AS id,\n" +
+            "    b.image_url AS imageUrl,\n" +
             "    b.title AS title,\n" +
             "    b.price AS price,\n" +
-            "    b.image_url AS url,\n" +
-            "    COUNT(bd.book_id) AS sold\n" +
+            "    SUM(i.quantity) AS sold\n" +
             "FROM\n" +
-            "    book_store.book AS b\n" +
-            "        JOIN\n" +
-            "    book_detail AS bd ON bd.book_id = b.id\n" +
-            "    join category as c on c.id = bd.category_id\n" +
-            "WHERE\n" +
-            "    c.name = ?1 \n" +
-            "GROUP BY b.id ",nativeQuery = true,
+            "    book AS b\n" +
+            "        JOIN book_detail as bd on b.id = bd.book_id join category as c \n" +
+            "        on c.id = bd.category_id\n" +
+            "        left join invoice as i on i.book_id = b.id\n" +
+            "        where c.name = ?1\n" +
+            "        group by b.id ",nativeQuery = true,
             countQuery = "SELECT \n" +
                     "    b.id AS id,\n" +
+                    "    b.image_url AS imageUrl,\n" +
                     "    b.title AS title,\n" +
                     "    b.price AS price,\n" +
-                    "    b.image_url AS url,\n" +
-                    "    COUNT(bd.book_id) AS sold\n" +
+                    "    SUM(i.quantity) AS sold\n" +
                     "FROM\n" +
-                    "    book_store.book AS b\n" +
-                    "        JOIN\n" +
-                    "    book_detail AS bd ON bd.book_id = b.id\n" +
-                    "    join category as c on c.id = bd.category_id\n" +
-                    "WHERE\n" +
-                    "    c.name = ?1 \n" +
-                    "GROUP BY b.id ")
+                    "    book AS b\n" +
+                    "        JOIN book_detail as bd on b.id = bd.book_id join category as c \n" +
+                    "        on c.id = bd.category_id\n" +
+                    "        left join invoice as i on i.book_id = b.id\n" +
+                    "        where c.name = ?1\n" +
+                    "        group by b.id ")
     Page<BookProjection> findByCategory(String category, Pageable pageable);
 
 
     @Query(value = "SELECT \n" +
             "    b.id AS id,\n" +
+            "    b.image_url AS imageUrl,\n" +
             "    b.title AS title,\n" +
-            "    b.image_url AS url,\n" +
             "    b.price AS price,\n" +
-            "    COUNT(id.book_id) AS sold\n" +
+            "    SUM(i.quantity) AS sold\n" +
             "FROM\n" +
             "    book AS b\n" +
             "        LEFT JOIN\n" +
-            "    invoice_detail AS id ON id.book_id = b.id\n" +
-            "        LEFT JOIN\n" +
-            "    invoice AS i ON i.id = id.invoice_id\n" +
+            "    invoice AS i ON b.id = i.book_id\n" +
             "        JOIN\n" +
             "    author AS a ON a.id = b.author_id\n" +
             "WHERE\n" +
-            "    b.title LIKE CONCAT('%', ?1, '%')\n" +
-            "        OR a.name LIKE CONCAT('%', ?1, '%')\n" +
+            "    a.name LIKE CONCAT('%', ?1, '%')\n" +
+            "        OR b.title LIKE CONCAT('%', ?1, '%')\n" +
             "GROUP BY b.id\n" +
-            "ORDER BY b.title DESC ",nativeQuery = true,
+            "ORDER BY b.image_url DESC ",nativeQuery = true,
     countQuery = "SELECT \n" +
             "    b.id AS id,\n" +
+            "    b.image_url AS imageUrl,\n" +
             "    b.title AS title,\n" +
-            "    b.image_url AS url,\n" +
             "    b.price AS price,\n" +
-            "    COUNT(id.book_id) AS sold\n" +
+            "    SUM(i.quantity) AS sold\n" +
             "FROM\n" +
             "    book AS b\n" +
             "        LEFT JOIN\n" +
-            "    invoice_detail AS id ON id.book_id = b.id\n" +
-            "        LEFT JOIN\n" +
-            "    invoice AS i ON i.id = id.invoice_id\n" +
+            "    invoice AS i ON b.id = i.book_id\n" +
             "        JOIN\n" +
             "    author AS a ON a.id = b.author_id\n" +
             "WHERE\n" +
-            "    b.title LIKE CONCAT('%', ?1, '%')\n" +
-            "        OR a.name LIKE CONCAT('%', ?1, '%')\n" +
+            "    a.name LIKE CONCAT('%', ?1, '%')\n" +
+            "        OR b.title LIKE CONCAT('%', ?1, '%')\n" +
             "GROUP BY b.id\n" +
-            "ORDER BY b.image_url DESC ")
+            "ORDER BY b.image_url ASC ")
     Page<BookProjection> findByTitleOrAuthor(String title, Pageable pageable);
 
 
-    @Query(value = "SELECT " +
-            "    b.id AS id, " +
-            "    b.title AS title, " +
-            "    b.image_url AS url, " +
-            "    b.price AS price, " +
-            "    COUNT(id.book_id) AS sold " +
-            "FROM " +
-            "    book AS b " +
-            "        JOIN " +
-            "    invoice_detail AS id ON id.book_id = b.id " +
-            "        JOIN " +
-            "    invoice AS i ON i.id = id.invoice_id " +
-            "GROUP BY b.id " +
-            "ORDER BY sold DESC " +
+    @Query(value = "SELECT \n" +
+            "    b.id AS id,\n" +
+            "    b.image_url AS imageUrl,\n" +
+            "    b.title AS title,\n" +
+            "    b.price AS price,\n" +
+            "    SUM(i.quantity) AS sold\n" +
+            "FROM\n" +
+            "    book AS b\n" +
+            "        JOIN\n" +
+            "    invoice AS i ON b.id = i.book_id\n" +
+            "GROUP BY b.id\n" +
+            "ORDER BY sold DESC\n" +
             "LIMIT 5 ", nativeQuery = true)
     List<BookProjection> getBestseller();
 }
